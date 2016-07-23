@@ -5,7 +5,3 @@ build/
 android.iml
 app.iml
 local.properties
-
-
-# iOS platform
-build
