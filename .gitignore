@@ -1,3 +1,6 @@
 # Android platform
 .gradle
 build
+
+# iOS platform
+build
