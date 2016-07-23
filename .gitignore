@@ -1,6 +1,11 @@
 # Android platform
-.gradle
-build
+.gradle/
+.idea/
+build/
+android.iml
+app.iml
+local.properties
+
 
 # iOS platform
 build
