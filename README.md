@@ -7,7 +7,7 @@ Write smart hybrid apps!
    use the one you like but Starter don't use it!
 
 2. Webkit  
-   Starter goals is to use Webkit on every platforms to ensure behaviour and performances
+   Starter's goal is to use Webkit on every platforms to ensure behaviour and performances
 
 3. Simple  
    Starter is simple! Take a look at [Tim Peters's ode to programming][Tim Peters's ode to programming]
