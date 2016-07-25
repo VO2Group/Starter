@@ -4,7 +4,8 @@
   "description": "Write smart hybrid apps",
   "scripts": {
     "start": "browser-sync start -s app -f '**/*'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build" : "npm run build:ios",
+    "build:ios": "cp -R app/ platforms/ios/web"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0"
