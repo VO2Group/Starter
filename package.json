@@ -4,10 +4,11 @@
   "description": "Write smart hybrid apps",
   "scripts": {
     "start": "browser-sync start -s app -f '**/*'",
-    "build" : "npm run build:ios",
+    "build": "npm run build:ios",
     "build:ios": "cp -R app/ platforms/ios/web"
   },
   "devDependencies": {
-    "browser-sync": "^2.13.0"
+    "browser-sync": "^2.13.0",
+    "jscs": "^3.0.7"
   }
 }
