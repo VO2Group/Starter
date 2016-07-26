@@ -11,21 +11,29 @@ import WebKit
 
 class ViewController: UIViewController, WKNavigationDelegate {
 
-    var webView: WKWebView!
-
-    override func loadView() {
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-    }
+    var webView: WKWebView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Create a WKWebView instance
+        webView = WKWebView (frame: self.view.frame, configuration: WKWebViewConfiguration())
+        
+        // Delegate to handle navigation of web content
+        webView!.navigationDelegate = self
+        
+        view.addSubview(webView!)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Load the HTML document
         let path = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "web")
         let url = NSURL(fileURLWithPath: path!)
-        webView.loadFileURL(url, allowingReadAccessToURL: url.URLByDeletingLastPathComponent!)
-        webView.allowsBackForwardNavigationGestures = true
+
+        webView!.loadFileURL(url, allowingReadAccessToURL: url.URLByDeletingLastPathComponent!)
+        webView!.allowsBackForwardNavigationGestures = true
     }
 
 }
