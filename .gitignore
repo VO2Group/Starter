@@ -8,3 +8,7 @@ build/
 android.iml
 app.iml
 local.properties
+
+# iOS
+project.xcworkspace/
+xcuserdata/
