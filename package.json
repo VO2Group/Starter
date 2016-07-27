@@ -4,9 +4,10 @@
   "description": "Write smart hybrid apps",
   "scripts": {
     "start": "browser-sync start -s www -f '**/*'",
-    "build": "npm run build:ios && npm run build:android",
-    "build:ios": "cp -R www/ platforms/ios/www",
-    "build:android": "cp -R www/ platforms/android/app/src/main/assets/www"
+    "check": "jscs www/scripts",
+    "copy": "npm run copy:ios && npm run copy:android",
+    "copy:ios": "cp -R www/ platforms/ios/www",
+    "copy:android": "cp -R www/ platforms/android/app/src/main/assets/www"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
