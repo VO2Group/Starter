@@ -29,7 +29,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         super.viewDidAppear(animated)
         
         // Load the HTML document
-        let path = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "web")
+        let path = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")
         let url = NSURL(fileURLWithPath: path!)
 
         webView!.loadFileURL(url, allowingReadAccessToURL: url.URLByDeletingLastPathComponent!)
