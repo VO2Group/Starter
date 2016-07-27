@@ -19,9 +19,10 @@ public class MainActivity extends AppCompatActivity {
         // Stop local links and redirects from opening in browser instead of WebView
         mWebView.setWebViewClient(new StarterWebViewClient());
 
-        // Enable Javascript
+        // Enable things!
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
 
         mWebView.loadUrl("file:///android_asset/www/index.html");
     }
