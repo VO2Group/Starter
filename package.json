@@ -5,10 +5,8 @@
   "scripts": {
     "start": "browser-sync start -s www -f '**/*'",
     "build": "npm run build:ios && npm run build:android",
-    "clean": "npm run clean:ios",
     "build:ios": "cp -R www/ platforms/ios/www",
-    "build:android": "cp -R www/ platforms/android/app/src/main/assets/www",
-    "clean:ios": "rm -rf platforms/ios/www/"
+    "build:android": "cp -R www/ platforms/android/app/src/main/assets/www"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
