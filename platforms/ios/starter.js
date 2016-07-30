@@ -6,7 +6,7 @@ window.Starter = {
   alert: function (message) {
     window.webkit.messageHandlers.handler.postMessage({
       method: 'alert',
-      message: message
+      message: message,
     });
-  }
+  },
 };

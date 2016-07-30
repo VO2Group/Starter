@@ -5,5 +5,5 @@ window.Starter = {
 
   alert: function (message) {
     StarterJavascriptInterface.alert(message);
-  }
+  },
 };

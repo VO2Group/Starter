@@ -25,13 +25,9 @@ public class MainActivity extends AppCompatActivity {
         this.mWebView.setWebViewClient(new StarterWebViewClient());
         this.mWebView.addJavascriptInterface(new StarterJavascriptInterface(this, this.mWebView), "StarterJavascriptInterface");
 
-        try {
-            InputStream stream = this.getAssets().open("starter.js");
+        try (InputStream stream = this.getAssets().open("starter.js")) {
             byte[] buffer = new byte[stream.available()];
-
             stream.read(buffer);
-            stream.close();
-
             this.mWebView.evaluateJavascript(new String(buffer), null);
         }
         catch (IOException ex) {
