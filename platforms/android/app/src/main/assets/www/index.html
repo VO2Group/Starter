@@ -2,9 +2,30 @@
 <html lang=en>
   <head>
     <meta charset=UTF-8>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name=viewport content="width=device-width, initial-scale=1">
   </head>
-  <body>
-    <h1>Starter</h1>
+  <body onload="init()">
+    <h1>Starter <span id=platform></span></h1>
+    
+    <h2>Call native things from Javascript</h2>
+    <button onclick="test()">test</button>
+
+    <script>
+      document.addEventListener('resume', function () {
+        console.log('resuming...');
+      });
+
+      document.addEventListener('pause', function () {
+        console.log('pausing...');
+      });
+
+      function init() {
+        document.getElementById('platform').innerHTML = Starter.getPlatform();
+      }
+
+      function test() {
+        Starter.alert("test");
+      }
+    </script>
   </body>
 </html>

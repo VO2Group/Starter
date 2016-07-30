@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -28,10 +27,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+        let controller = self.window?.rootViewController as! ViewController
+        controller.webView?.evaluateJavaScript("document.dispatchEvent(new Event('pause'));", completionHandler: nil)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+        let controller = self.window?.rootViewController as! ViewController
+        controller.webView?.evaluateJavaScript("document.dispatchEvent(new Event('resume'));", completionHandler: nil)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
@@ -73,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
 
             dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            let wrappedError = NSError(domain: "STARTER", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")

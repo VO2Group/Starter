@@ -9,31 +9,46 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
     var webView: WKWebView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Create a WKWebView instance
-        webView = WKWebView (frame: self.view.frame, configuration: WKWebViewConfiguration())
-        
-        // Delegate to handle navigation of web content
-        webView!.navigationDelegate = self
-        
-        view.addSubview(webView!)
+        let contentController = WKUserContentController()
+        contentController.addScriptMessageHandler(self, name: "handler")
+        let config = WKWebViewConfiguration()
+        config.userContentController = contentController
+
+        self.webView = WKWebView (frame: self.view.frame, configuration: config)
+        self.webView!.navigationDelegate = self
+        self.webView!.allowsBackForwardNavigationGestures = true
+        self.view.addSubview(self.webView!)
+
+        let starter = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("starter", ofType: "js")!)
+        self.webView!.evaluateJavaScript(try! String(contentsOfURL: starter), completionHandler: nil)
+
+        let www = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
+        self.webView!.loadFileURL(www, allowingReadAccessToURL: www.URLByDeletingLastPathComponent!)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        // Load the HTML document
-        let path = NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")
-        let url = NSURL(fileURLWithPath: path!)
+    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+        if message.name == "handler" {
+            switch message.body["method"] as! String {
+            case "alert":
+                self.alert(message.body["message"] as! String)
+                break;
+            default:
+                break;
+            }
+        }
+    }
 
-        webView!.loadFileURL(url, allowingReadAccessToURL: url.URLByDeletingLastPathComponent!)
-        webView!.allowsBackForwardNavigationGestures = true
+    func alert(message: String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
 }

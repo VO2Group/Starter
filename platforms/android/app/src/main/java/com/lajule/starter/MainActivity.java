@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
 
     private WebView mWebView;
@@ -14,17 +17,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mWebView = (WebView) findViewById(R.id.activity_main_webview);
-
-        // Stop local links and redirects from opening in browser instead of WebView
-        mWebView.setWebViewClient(new StarterWebViewClient());
-
-        // Enable things!
-        WebSettings webSettings = mWebView.getSettings();
+        this.mWebView = (WebView) findViewById(R.id.activity_main_webview);
+        WebSettings webSettings = this.mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        mWebView.loadUrl("file:///android_asset/www/index.html");
+        this.mWebView.setWebViewClient(new StarterWebViewClient());
+        this.mWebView.addJavascriptInterface(new StarterJavascriptInterface(this, this.mWebView), "StarterJavascriptInterface");
+
+        try {
+            InputStream stream = this.getAssets().open("starter.js");
+            byte[] buffer = new byte[stream.available()];
+
+            stream.read(buffer);
+            stream.close();
+
+            this.mWebView.evaluateJavascript(new String(buffer), null);
+        }
+        catch (IOException ex) {
+        }
+
+        this.mWebView.loadUrl("file:///android_asset/www/index.html");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", null);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('resume'));", null);
     }
 
     @Override
