@@ -8,11 +8,11 @@ window.starter = {
   },
 
   yesOrNo: function (message) {
-    var self = this;
+    var _this = this;
     return new Promise(function (resolve, reject) {
-      var index = self._callbacks.length;
-      self._callbacks.push(resolve);
-      self._callbacks.push(reject);
+      var index = _this._callbacks.length;
+      _this._callbacks.push(resolve);
+      _this._callbacks.push(reject);
       window.StarterJavascriptInterface.yesOrNo(message, index, index + 1);
     });
   },
