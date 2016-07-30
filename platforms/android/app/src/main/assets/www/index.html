@@ -6,25 +6,38 @@
   </head>
   <body onload="init()">
     <h1>Starter <span id=platform></span></h1>
-    
+
     <h2>Call native things from Javascript</h2>
     <button onclick="test()">test</button>
 
+    <h2>Javascript is all about async things!</h2>
+    <button onclick="question()">question</button>
+
     <script>
-      document.addEventListener('resume', function () {
-        console.log('resuming...');
-      });
-
-      document.addEventListener('pause', function () {
-        console.log('pausing...');
-      });
-
       function init() {
-        document.getElementById('platform').innerHTML = Starter.getPlatform();
+        document.getElementById('platform').innerHTML = window.starter.platform();
+        document.addEventListener('resume', function () {
+          console.log('resuming...');
+        });
+        document.addEventListener('pause', function () {
+          console.log('pausing...');
+        });
       }
 
       function test() {
-        Starter.alert("test");
+        window.starter.alert("test");
+      }
+
+      function question() {
+        window.starter
+          .yesOrNo("Are you ... ?")
+          .then(function (answer) {
+            console.log("this:", this);
+            console.log(answer);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
       }
     </script>
   </body>

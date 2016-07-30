@@ -38,9 +38,12 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
             switch message.body["method"] as! String {
             case "alert":
                 self.alert(message.body["message"] as! String)
-                break;
+                break
+            case "yesOrNo":
+                self.yesOrNo(message.body["message"] as! String, resolve: message.body["resolve"] as! Int, reject: message.body["reject"] as! Int)
+                break
             default:
-                break;
+                break
             }
         }
     }
@@ -51,4 +54,15 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
+    func yesOrNo(message: String, resolve: Int, reject: Int) {
+        let alert = UIAlertController(title: "Question", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+            self.webView!.evaluateJavaScript("window.starter._invoke(" + String(resolve) + ", true);", completionHandler: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+            self.webView!.evaluateJavaScript("window.starter._invoke(" + String(resolve) + ", false);", completionHandler: nil)
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
 }

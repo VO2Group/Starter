@@ -22,11 +22,40 @@ public class StarterJavascriptInterface {
 
     @JavascriptInterface
     public void alert(String message) {
-        new AlertDialog.Builder(mContext)
+        new AlertDialog.Builder(this.mContext)
                 .setTitle("Alert")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+    @JavascriptInterface
+    public void yesOrNo(String message, final int resolve, final int reject) {
+        new AlertDialog.Builder(this.mContext)
+                .setTitle("Question")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        StarterJavascriptInterface.this.mWebView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("window.starter._invoke(" + resolve + ", true);", null);
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        StarterJavascriptInterface.this.mWebView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("window.starter._invoke(" + resolve + ", false);", null);
+                            }
+                        });
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
