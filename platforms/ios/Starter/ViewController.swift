@@ -39,8 +39,8 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
             case "alert":
                 self.alert(message.body["message"] as! String)
                 break
-            case "yesOrNo":
-                self.yesOrNo(message.body["message"] as! String, callback: message.body["callback"] as! String)
+            case "confirm":
+                self.confirm(message.body["message"] as! String, callback: message.body["callback"] as! String)
                 break
             default:
                 break
@@ -54,8 +54,8 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
-    func yesOrNo(message: String, callback: String) {
-        let alert = UIAlertController(title: "Question", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+    func confirm(message: String, callback: String) {
+        let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
             self.webView!.evaluateJavaScript("platform._invoke('" + callback + "', true, true);", completionHandler: nil)
         }))

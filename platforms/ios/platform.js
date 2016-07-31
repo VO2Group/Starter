@@ -10,7 +10,7 @@ window.platform = {
     });
   },
 
-  yesOrNo: function (message) {
+  confirm: function (message) {
     var _this = this;
     return new Promise(function (resolve, reject) {
       var uuid = _this._uuid();
@@ -19,7 +19,7 @@ window.platform = {
         reject: reject,
       };
       webkit.messageHandlers.handler.postMessage({
-        method: 'yesOrNo',
+        method: 'confirm',
         message: message,
         callback: uuid,
       });

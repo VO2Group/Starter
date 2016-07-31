@@ -7,7 +7,7 @@ window.platform = {
     android.alert(message);
   },
 
-  yesOrNo: function (message) {
+  confirm: function (message) {
     var _this = this;
     return new Promise(function (resolve, reject) {
       var uuid = _this._uuid();
@@ -15,7 +15,7 @@ window.platform = {
         resolve: resolve,
         reject: reject,
       };
-      android.yesOrNo(message, uuid);
+      android.confirm(message, uuid);
     });
   },
 

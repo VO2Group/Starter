@@ -34,9 +34,9 @@ public class StarterJavascriptInterface {
     }
 
     @JavascriptInterface
-    public void yesOrNo(String message, final String callback) {
+    public void confirm(String message, final String callback) {
         new AlertDialog.Builder(this.mContext)
-                .setTitle("Question")
+                .setTitle("Confirm")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
