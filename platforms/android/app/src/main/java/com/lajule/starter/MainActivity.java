@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDomStorageEnabled(true);
 
         this.mWebView.setWebViewClient(new StarterWebViewClient());
-        this.mWebView.addJavascriptInterface(new StarterJavascriptInterface(this, this.mWebView), "StarterJavascriptInterface");
+        this.mWebView.addJavascriptInterface(new StarterJavascriptInterface(this, this.mWebView), "Platform");
 
-        try (InputStream stream = this.getAssets().open("starter.js")) {
+        try (InputStream stream = this.getAssets().open("platform.js")) {
             byte[] buffer = new byte[stream.available()];
             stream.read(buffer);
             this.mWebView.evaluateJavascript(new String(buffer), null);

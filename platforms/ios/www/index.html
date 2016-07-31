@@ -12,10 +12,11 @@
 
     <h2>Javascript is all about async things!</h2>
     <button onclick="question()">question</button>
+    <p id=answer>Clic to answer a question</p>
 
     <script>
       function init() {
-        document.getElementById('platform').innerHTML = window.starter.platform();
+        document.getElementById('platform').innerHTML = window.platform.name();
         document.addEventListener('resume', function () {
           console.log('resuming...');
         });
@@ -25,15 +26,15 @@
       }
 
       function test() {
-        window.starter.alert("test");
+        window.platform.alert("test");
       }
 
       function question() {
-        window.starter
+        var answer = document.getElementById('answer');
+        window.platform
           .yesOrNo("Are you ... ?")
-          .then(function (answer) {
-            console.log("this:", this);
-            console.log(answer);
+          .then(function (rep) {
+            answer.innerHTML = 'Your answer is ' + (rep ? 'Yes!' : 'No!');
           })
           .catch(function (err) {
             console.log(err);

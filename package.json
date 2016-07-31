@@ -8,9 +8,9 @@
     "check": "npm run check:www && npm run check:ios && npm run check:android",
     "copy": "npm run copy:ios && npm run copy:android",
     "check:www": "jscs www/scripts",
-    "check:ios": "jscs platforms/ios/starter.js",
+    "check:ios": "jscs platforms/ios/platform.js",
     "copy:ios": "cp -R www/ platforms/ios/www",
-    "check:android": "jscs platforms/android/app/src/main/assets/starter.js",
+    "check:android": "jscs platforms/android/app/src/main/assets/platform.js",
     "copy:android": "cp -R www/ platforms/android/app/src/main/assets/www"
   },
   "devDependencies": {

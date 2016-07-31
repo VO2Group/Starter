@@ -1,5 +1,5 @@
-window.starter = {
-  platform: function () {
+window.platform = {
+  name: function () {
     return 'ios';
   },
 

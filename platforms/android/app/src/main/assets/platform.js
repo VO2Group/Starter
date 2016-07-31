@@ -1,10 +1,10 @@
-window.starter = {
-  platform: function () {
+window.platform = {
+  name: function () {
     return 'andoid';
   },
 
   alert: function (message) {
-    StarterJavascriptInterface.alert(message);
+    window.Platform.alert(message);
   },
 
   yesOrNo: function (message) {
@@ -13,7 +13,7 @@ window.starter = {
       var index = _this._callbacks.length;
       _this._callbacks.push(resolve);
       _this._callbacks.push(reject);
-      window.StarterJavascriptInterface.yesOrNo(message, index, index + 1);
+      window.Platform.yesOrNo(message, index, index + 1);
     });
   },
 
