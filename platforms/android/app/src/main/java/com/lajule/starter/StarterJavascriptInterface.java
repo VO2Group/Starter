@@ -25,7 +25,7 @@ public class StarterJavascriptInterface {
         new AlertDialog.Builder(this.mContext)
                 .setTitle("Alert")
                 .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })
@@ -38,7 +38,7 @@ public class StarterJavascriptInterface {
         new AlertDialog.Builder(this.mContext)
                 .setTitle("Question")
                 .setMessage(message)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         StarterJavascriptInterface.this.mWebView.post(new Runnable() {
                             @Override
@@ -48,7 +48,7 @@ public class StarterJavascriptInterface {
                         });
                     }
                 })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                .setNeutralButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         StarterJavascriptInterface.this.mWebView.post(new Runnable() {
                             @Override

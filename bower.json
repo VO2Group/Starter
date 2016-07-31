@@ -1,8 +1,0 @@
-{
-  "name": "starter",
-  "private": "true",
-  "dependencies": {
-    "moment": "moment/moment#2.11.2",
-    "font-awesome": "components/font-awesome#4.6.3"
-  }
-}
