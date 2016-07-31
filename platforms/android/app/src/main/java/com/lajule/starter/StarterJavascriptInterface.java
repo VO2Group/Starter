@@ -25,7 +25,7 @@ public class StarterJavascriptInterface {
         new AlertDialog.Builder(this.mContext)
                 .setTitle("Alert")
                 .setMessage(message)
-                .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 })
@@ -34,26 +34,26 @@ public class StarterJavascriptInterface {
     }
 
     @JavascriptInterface
-    public void yesOrNo(String message, final int resolve, final int reject) {
+    public void yesOrNo(String message, final String callback) {
         new AlertDialog.Builder(this.mContext)
                 .setTitle("Question")
                 .setMessage(message)
-                .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         StarterJavascriptInterface.this.mWebView.post(new Runnable() {
                             @Override
                             public void run() {
-                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke(" + resolve + ", true);", null);
+                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke('" + callback + "', true, true);", null);
                             }
                         });
                     }
                 })
-                .setNeutralButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         StarterJavascriptInterface.this.mWebView.post(new Runnable() {
                             @Override
                             public void run() {
-                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke(" + resolve + ", false);", null);
+                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke('" + callback + "', true, false);", null);
                             }
                         });
                     }
