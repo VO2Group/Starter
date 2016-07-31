@@ -12,10 +12,10 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
     var webView: WKWebView?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let contentController = WKUserContentController()
         contentController.addScriptMessageHandler(self, name: "handler")
         let config = WKWebViewConfiguration()
@@ -32,7 +32,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
         let www = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
         self.webView!.loadFileURL(www, allowingReadAccessToURL: www.URLByDeletingLastPathComponent!)
     }
-    
+
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         if message.name == "handler" {
             switch message.body["method"] as! String {
@@ -57,12 +57,12 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
     func yesOrNo(message: String, resolve: Int, reject: Int) {
         let alert = UIAlertController(title: "Question", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
-            self.webView!.evaluateJavaScript("window.platform._invoke(" + String(resolve) + ", true);", completionHandler: nil)
+            self.webView!.evaluateJavaScript("platform._invoke(" + String(resolve) + ", true);", completionHandler: nil)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
-            self.webView!.evaluateJavaScript("window.platform._invoke(" + String(resolve) + ", false);", completionHandler: nil)
+            self.webView!.evaluateJavaScript("platform._invoke(" + String(resolve) + ", false);", completionHandler: nil)
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
-    
+
 }

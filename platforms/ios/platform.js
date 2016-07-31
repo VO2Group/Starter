@@ -4,7 +4,7 @@ window.platform = {
   },
 
   alert: function (message) {
-    window.webkit.messageHandlers.handler.postMessage({
+    webkit.messageHandlers.handler.postMessage({
       method: 'alert',
       message: message,
     });
@@ -16,7 +16,7 @@ window.platform = {
       var index = _this._callbacks.length;
       _this._callbacks.push(resolve);
       _this._callbacks.push(reject);
-      window.webkit.messageHandlers.handler.postMessage({
+      webkit.messageHandlers.handler.postMessage({
         method: 'yesOrNo',
         message: message,
         resolve: index,

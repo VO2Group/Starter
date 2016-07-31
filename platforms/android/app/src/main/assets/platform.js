@@ -4,7 +4,7 @@ window.platform = {
   },
 
   alert: function (message) {
-    window.Platform.alert(message);
+    android.alert(message);
   },
 
   yesOrNo: function (message) {
@@ -13,7 +13,7 @@ window.platform = {
       var index = _this._callbacks.length;
       _this._callbacks.push(resolve);
       _this._callbacks.push(reject);
-      window.Platform.yesOrNo(message, index, index + 1);
+      android.yesOrNo(message, index, index + 1);
     });
   },
 
