@@ -10,19 +10,13 @@ window.platform = {
     });
   },
 
-  confirm: function (message) {
-    var _this = this;
-    return new Promise(function (resolve, reject) {
-      var uuid = _this._uuid();
-      _this._callbacks[uuid] = {
-        resolve: resolve,
-        reject: reject,
-      };
-      webkit.messageHandlers.handler.postMessage({
-        method: 'confirm',
-        message: message,
-        callback: uuid,
-      });
+  confirm: function (message, next) {
+    var uuid = this._uuid();
+    this._callbacks[uuid] = next;
+    webkit.messageHandlers.handler.postMessage({
+      method: 'confirm',
+      message: message,
+      callback: uuid,
     });
   },
 
@@ -36,9 +30,8 @@ window.platform = {
     });
   },
 
-  _invoke: function (uuid, success, obj) {
-    var callback = success ? 'resolve' : 'reject';
-    this._callbacks[uuid][callback](obj);
+  _invoke: function (uuid, err, data) {
+    this._callbacks[uuid](err, data);
     delete this._callbacks[uuid];
   },
 };

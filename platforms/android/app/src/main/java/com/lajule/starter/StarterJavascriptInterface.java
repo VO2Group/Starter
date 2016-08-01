@@ -43,7 +43,7 @@ public class StarterJavascriptInterface {
                         StarterJavascriptInterface.this.mWebView.post(new Runnable() {
                             @Override
                             public void run() {
-                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke('" + callback + "', true, true);", null);
+                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke('" + callback + "', null, true);", null);
                             }
                         });
                     }
@@ -53,7 +53,7 @@ public class StarterJavascriptInterface {
                         StarterJavascriptInterface.this.mWebView.post(new Runnable() {
                             @Override
                             public void run() {
-                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke('" + callback + "', true, false);", null);
+                                StarterJavascriptInterface.this.mWebView.evaluateJavascript("platform._invoke('" + callback + "', null, false);", null);
                             }
                         });
                     }

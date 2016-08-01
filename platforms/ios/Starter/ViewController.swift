@@ -57,10 +57,10 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
     func confirm(message: String, callback: String) {
         let alert = UIAlertController(title: "Confirm", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
-            self.webView!.evaluateJavaScript("platform._invoke('" + callback + "', true, true);", completionHandler: nil)
+            self.webView!.evaluateJavaScript("platform._invoke('" + callback + "', null, true);", completionHandler: nil)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
-            self.webView!.evaluateJavaScript("platform._invoke('" + callback + "', true, false);", completionHandler: nil)
+            self.webView!.evaluateJavaScript("platform._invoke('" + callback + "', null, false);", completionHandler: nil)
         }))
         self.presentViewController(alert, animated: true, completion: nil)
     }
