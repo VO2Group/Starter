@@ -7,7 +7,7 @@ window.platform = window.platform || {
     alert(message);
   },
 
-  confirm: function (message, next) {
-    next(null, confirm(message));
+  confirm: function (message, callback) {
+    callback(null, confirm(message));
   },
 };

@@ -10,9 +10,9 @@ window.platform = {
     });
   },
 
-  confirm: function (message, next) {
+  confirm: function (message, callback) {
     var uuid = this._uuid();
-    this._callbacks[uuid] = next;
+    this._callbacks[uuid] = callback;
     webkit.messageHandlers.handler.postMessage({
       method: 'confirm',
       message: message,

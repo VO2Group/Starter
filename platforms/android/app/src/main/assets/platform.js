@@ -7,9 +7,9 @@ window.platform = {
     android.alert(message);
   },
 
-  confirm: function (message, next) {
+  confirm: function (message, callback) {
     var uuid = this._uuid();
-    this._callbacks[uuid] = next;
+    this._callbacks[uuid] = callback;
     android.confirm(message, uuid);
   },
 
