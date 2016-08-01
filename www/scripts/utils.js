@@ -5,21 +5,24 @@ function debounce(fn, timeout) {
     var _arguments = arguments;
     clearTimeout(timeoutId);
     timeoutId = setTimeout(function () {
+      timeout = null;
       fn.apply(_this, _arguments);
     }, timeout);
   };
 }
 
-function poll(fn, resolve, reject, timeout, interval) {
+function poll(fn, timeout, interval) {
   var end = Date.now() + (timeout || 2000);
   interval = interval || 100;
-  (function p() {
-    if (fn()) {
-      resolve();
-    } else if (Date.now() < end) {
-      setTimeout(p, interval);
-    } else {
-      reject();
-    }
-  })();
+  return new Promise(function (resolve, reject) {
+    (function p() {
+      if (fn()) {
+        resolve();
+      } else if (Date.now() < end) {
+        setTimeout(p, interval);
+      } else {
+        reject();
+      }
+    })();
+  });
 }
