@@ -12,5 +12,4 @@ window.platform = window.platform || {
       resolve(confirm(message));
     });
   },
-
 };
