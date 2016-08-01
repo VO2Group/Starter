@@ -16,3 +16,11 @@ Write smart hybrid apps!
    None of tim's rules can not be broken (see 8th rule)
 
 [Tim Peters's ode to programming]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
+
+
+
+### SVG
+
+http://svgicons.sparkk.fr/
+
+### WebGL

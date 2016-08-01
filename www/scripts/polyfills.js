@@ -7,9 +7,7 @@ window.platform = window.platform || {
     alert(message);
   },
 
-  confirm: function (message) {
-    return new Promise(function (resolve, reject) {
-      resolve(confirm(message));
-    });
+  confirm: function (message, resolve, reject) {
+    resolve(confirm(message));
   },
 };

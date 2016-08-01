@@ -8,15 +8,12 @@ window.platform = {
   },
 
   confirm: function (message) {
-    var _this = this;
-    return new Promise(function (resolve, reject) {
-      var uuid = _this._uuid();
-      _this._callbacks[uuid] = {
-        resolve: resolve,
-        reject: reject,
-      };
-      android.confirm(message, uuid);
-    });
+    var uuid = this._uuid();
+    this._callbacks[uuid] = {
+      resolve: resolve,
+      reject: reject,
+    };
+    android.confirm(message, uuid);
   },
 
   _callbacks: {},

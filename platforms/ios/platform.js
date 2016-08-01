@@ -10,19 +10,16 @@ window.platform = {
     });
   },
 
-  confirm: function (message) {
-    var _this = this;
-    return new Promise(function (resolve, reject) {
-      var uuid = _this._uuid();
-      _this._callbacks[uuid] = {
-        resolve: resolve,
-        reject: reject,
-      };
-      webkit.messageHandlers.handler.postMessage({
-        method: 'confirm',
-        message: message,
-        callback: uuid,
-      });
+  confirm: function (message, resolve, reject) {
+    var uuid = this._uuid();
+    this._callbacks[uuid] = {
+      resolve: resolve,
+      reject: reject,
+    };
+    webkit.messageHandlers.handler.postMessage({
+      method: 'confirm',
+      message: message,
+      callback: uuid,
     });
   },
 
