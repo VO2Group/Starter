@@ -15,7 +15,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let contentController = WKUserContentController()
         contentController.addScriptMessageHandler(self, name: "handler")
         let config = WKWebViewConfiguration()
@@ -23,6 +23,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
 
         self.webView = WKWebView (frame: self.view.frame, configuration: config)
         self.webView!.navigationDelegate = self
+        self.webView!.scrollView.bounces = false
         self.webView!.allowsBackForwardNavigationGestures = true
         self.view.addSubview(self.webView!)
 
@@ -31,8 +32,19 @@ class ViewController: UIViewController, WKNavigationDelegate, WKScriptMessageHan
 
         let www = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
         self.webView!.loadFileURL(www, allowingReadAccessToURL: www.URLByDeletingLastPathComponent!)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.onPause), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.onResume), name: UIApplicationWillEnterForegroundNotification, object: nil)
+    }
+    
+    func onPause(notification: NSNotification) {
+        self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('pause'));", completionHandler: nil)
     }
 
+    func onResume(notification: NSNotification) {
+        self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('resume'));", completionHandler: nil)
+    }
+    
     func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
         if message.name == "handler" {
             switch message.body["method"] as! String {
