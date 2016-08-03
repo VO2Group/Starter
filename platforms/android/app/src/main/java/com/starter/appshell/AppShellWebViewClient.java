@@ -8,7 +8,7 @@ import android.webkit.WebViewClient;
 /**
  * Created by julienrouzieres on 03/08/2016.
  */
-public class AppShellWebClient extends WebViewClient {
+public class AppShellWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
