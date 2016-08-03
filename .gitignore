@@ -2,14 +2,6 @@
 node_modules/
 npm-debug.log
 
-# Android platform
-.gradle/
-.idea/
-build/
-android.iml
-app.iml
-local.properties
-
 # iOS
 project.xcworkspace/
 xcuserdata/

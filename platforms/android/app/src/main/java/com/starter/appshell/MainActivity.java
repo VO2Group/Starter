@@ -1,4 +1,4 @@
-package com.lajule.starter;
+package com.starter.appshell;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        this.mWebView.setWebViewClient(new StarterWebViewClient());
-        this.mWebView.addJavascriptInterface(new StarterJavascriptInterface(this, this.mWebView), "android");
+        this.mWebView.setWebViewClient(new AppShellWebClient());
+        this.mWebView.addJavascriptInterface(new AppShellJavascriptInterface(this, this.mWebView), "android");
 
         try (InputStream stream = this.getAssets().open("platform.js")) {
             byte[] buffer = new byte[stream.available()];
@@ -58,5 +58,4 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 }

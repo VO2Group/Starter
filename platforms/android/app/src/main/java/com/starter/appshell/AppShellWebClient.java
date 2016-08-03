@@ -1,4 +1,4 @@
-package com.lajule.starter;
+package com.starter.appshell;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,9 +6,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 /**
- * Created by julienrouzieres on 26/07/2016.
+ * Created by julienrouzieres on 03/08/2016.
  */
-public class StarterWebViewClient extends WebViewClient {
+public class AppShellWebClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
