@@ -3,11 +3,11 @@ window.platform = window.platform || {
     return 'www';
   },
 
-  alert: function (message) {
+  foo: function (message) {
     alert(message);
   },
 
-  confirm: function (message, callback) {
+  bar: function (message, callback) {
     callback(null, confirm(message));
   },
 };

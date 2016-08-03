@@ -1,5 +1,5 @@
-fonts/
-images/
-scripts/
-styles/
-index.html
+*.html
+/fonts
+/images
+/scripts
+/styles

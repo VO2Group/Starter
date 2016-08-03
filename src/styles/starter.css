@@ -27,13 +27,13 @@ body {
   font-family: 'Lato-Regular';
 }
 
-.header {
+header {
   height: 50px;
   color: white;
   background: blue;
 }
 
-.content {
+section {
   flex: 1;
   color: white;
   background: grey;
@@ -42,11 +42,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-canvas {
-  flex: 1;
-}
-
-.footer {
+footer {
   height: 50px;
   color: white;
   background: red;
