@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Starter
+//  AppShell
 //
-//  Created by Julien Rouzieres on 23/07/2016.
+//  Created by Julien Rouzieres on 03/08/2016.
 //  Copyright © 2016 Julien Rouzieres. All rights reserved.
 //
 
@@ -13,6 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -46,14 +47,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
 
     lazy var applicationDocumentsDirectory: NSURL = {
-        // The directory the application uses to store the Core Data store file. This code uses a directory named "lajule.Starter" in the application's documents Application Support directory.
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "starter.AppShell" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Starter", withExtension: "momd")!
+        let modelURL = NSBundle.mainBundle().URLForResource("AppShell", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 
@@ -72,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
 
             dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "STARTER", code: 9999, userInfo: dict)
+            let wrappedError = NSError(domain: "APP_SHELL", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")

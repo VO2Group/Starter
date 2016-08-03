@@ -3,18 +3,18 @@ window.platform = {
     return 'ios';
   },
 
-  alert: function (message) {
+  foo: function (message) {
     webkit.messageHandlers.handler.postMessage({
-      method: 'alert',
+      method: 'foo',
       message: message,
     });
   },
 
-  confirm: function (message, callback) {
+  bar: function (message, callback) {
     var uuid = this._uuid();
     this._callbacks[uuid] = callback;
     webkit.messageHandlers.handler.postMessage({
-      method: 'confirm',
+      method: 'bar',
       message: message,
       callback: uuid,
     });
