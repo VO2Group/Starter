@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+    <title>Starter</title>
+    <meta charset=utf-8>
+    <meta name=viewport content="initial-scale=1">
+  </head>
+  <body>
+    <h1>Starter</h1>
+    <script>
+      window.platform = window.platform || {
+        name: function () {
+          return 'www';
+        },
+
+        foo: function (message) {
+          alert(message);
+        },
+
+        bar: function (message, callback) {
+          callback(null, confirm(message));
+        },
+      };
+    </script>
+  </body>
+</html>
