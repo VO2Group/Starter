@@ -5,22 +5,46 @@
     <meta charset=utf-8>
     <meta name=viewport content="initial-scale=1">
   </head>
-  <body>
-    <h1>Starter</h1>
+  <body onload="init()">
+    <h1 id=title></h1>
+    <button id=foo>Foo</button>
+    <button id=bar>Bar</button>
+    <span id=answer></span>
     <script>
-      window.platform = window.platform || {
-        name: function () {
-          return 'www';
-        },
+      function init() {
+        window.platform = window.platform || {
+          name: function () {
+              return 'www';
+          },
 
-        foo: function (message) {
-          alert(message);
-        },
+          foo: function (message) {
+            alert(message);
+          },
 
-        bar: function (message, callback) {
-          callback(null, confirm(message));
-        },
-      };
+          bar: function (message, callback) {
+            callback(null, confirm(message));
+          },
+        };
+
+        document.getElementById('title').textContent = 'Starter (' + platform.name() + ')';
+        document.getElementById('foo').addEventListener('click', onFoo);
+        document.getElementById('bar').addEventListener('click', onBar);
+
+        ///////////
+
+        function onFoo() {
+          platform.foo('Hello!');
+        }
+
+        function onBar() {
+          platform.bar('Do you love Javascript?', onAnswer);
+        }
+
+        function onAnswer(err, data) {
+          if (err) throw err;
+          document.getElementById('answer').textContent = (data ? 'Yes' : 'No') + '!';
+        }
+      }
     </script>
   </body>
 </html>

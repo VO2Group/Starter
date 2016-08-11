@@ -3,14 +3,14 @@ window.platform = {
     return 'andoid';
   },
 
-  bar: function (message) {
-    android.bar(message);
+  foo: function (message) {
+    android.foo(message);
   },
 
-  foo: function (message, callback) {
+  bar: function (message, callback) {
     var uuid = this._uuid();
     this._callbacks[uuid] = callback;
-    android.foo(message, uuid);
+    android.bar(message, uuid);
   },
 
   _callbacks: {},
