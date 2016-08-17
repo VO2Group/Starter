@@ -31,7 +31,7 @@ Following tools are mandatory for a full use of Starter:
 * [XCode][XCode]: Even you don't feel right with it, there is no other choise for iOS.
 * [Android Studio][Android Studio]: The best IDE for building Android apps.
 * [Browsersync][Browsersync]: A wonderful tool for multi-device web development.
-* [GNU make][GNU make]: After more than 25 years, the old `make` binary still rules all build tools!
+* [GNU make][GNU make]: After more than 25 years, the old `make` build tool still rule them all!
 * [Jenkins][Jenkins]: The king of continuous integration.
 * [fastlane][fastlane]: The game changer for stores submission.
 
