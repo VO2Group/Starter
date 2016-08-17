@@ -11,6 +11,8 @@
     <button id=bar>Bar</button>
     <span id=answer></span>
     <script>
+      'use strict';
+
       function init() {
         window.platform = window.platform || {
           name: function () {
@@ -41,7 +43,8 @@
         }
 
         function onAnswer(err, data) {
-          if (err) throw err;
+          if (err)
+            throw err;
           document.getElementById('answer').textContent = (data ? 'Yes' : 'No') + '!';
         }
       }
