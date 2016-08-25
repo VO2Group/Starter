@@ -1,4 +1,4 @@
-app_identifier "com.starter.AppShell" # The bundle identifier of your app
+app_identifier "com.starter.appshell" # The bundle identifier of your app
 apple_id "julien.rouzieres@mac.com" # Your Apple email address
 
 team_id "[[DEV_PORTAL_TEAM_ID]]"  # Developer Portal Team ID

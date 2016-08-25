@@ -12,7 +12,7 @@ public class AppShellWebViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if(Uri.parse(url).getHost().length() == 0) {
+        if (Uri.parse(url).getHost().length() == 0) {
             return false;
         }
 

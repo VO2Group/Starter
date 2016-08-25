@@ -16,7 +16,4 @@ clean-android:
 clean-ios:
 	rm -f platforms/ios/www/index.html
 
-serve:
-	browser-sync start -s www -f '**/*'
-
-.PHONY: all clean serve
+.PHONY: all clean
