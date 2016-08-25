@@ -23,6 +23,7 @@ Starter focus two platforms:
 * Android 6.0 (API level 23)
 
 > If you need more backward compatibility, use something else!
+> If you need more exotic platforms like Windows Phone or BlackBerry, use something else!
 
 ## Tools
 
@@ -34,12 +35,6 @@ Following tools are mandatory for a full use of Starter:
 * [GNU make][GNU make]: After more than 25 years, the old `make` build tool still rule them all!
 * [Jenkins][Jenkins]: The king of continuous integration.
 * [fastlane][fastlane]: The game changer for stores submission.
-
-## Concepts
-
-
-
-
 
 [WebKit]: https://webkit.org/ "WebKit"
 [Tim Peters's ode to programming]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"

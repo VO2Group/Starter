@@ -1,14 +1,3 @@
-# Customise this file, documentation can be found here:
-# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
-# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
-# can also be listed using the `fastlane actions` command
-
-# Change the syntax highlighting to Ruby
-# All lines starting with a # are ignored when running `fastlane`
-
-# If you want to automatically update fastlane if a new version is available:
-# update_fastlane
-
 # Don't generate README.md
 skip_docs
 
@@ -21,8 +10,6 @@ default_platform :ios
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-
-
   end
 
   desc "Runs all the tests"
@@ -30,15 +17,8 @@ platform :ios do
     scan(
       project: "platforms/ios/AppShell.xcodeproj"
     )
-  end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
     # slack(
-    #   message: "Successfully deployed new App Update."
+    #   message: "iOS test success."
     # )
   end
 
@@ -53,8 +33,6 @@ end
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-
-
   end
 
   desc "Runs all the tests"
@@ -63,15 +41,8 @@ platform :android do
       project_dir: "platforms/android",
       task: "test"
     )
-  end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
     # slack(
-    #   message: "Successfully deployed new App Update."
+    #   message: "Android test success."
     # )
   end
 
@@ -82,9 +53,3 @@ platform :android do
     # )
   end
 end
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
-
-# fastlane reports which actions are used
-# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer

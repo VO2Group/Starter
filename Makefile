@@ -1,5 +1,4 @@
-# ...
-
+# Copy HTML5 application to platforms directories.
 all: platforms/android/app/src/main/assets/www/index.html \
 	platforms/ios/www/index.html
 
