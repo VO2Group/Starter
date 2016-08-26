@@ -4,7 +4,7 @@ SOURCES := www/index.html
 
 PLATFORMS := platforms/android/app/src/main/assets platforms/ios
 
-TARGETS := $(foreach platform,$(PLATFORMS),$(addprefix $(platform)/, $(SOURCES)))
+TARGETS := $(foreach platform, $(PLATFORMS), $(addprefix $(platform)/, $(SOURCES)))
 
 all: $(TARGETS)
 
