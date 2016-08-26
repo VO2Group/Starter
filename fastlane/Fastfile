@@ -7,49 +7,25 @@ fastlane_version "1.101.0"
 
 default_platform :ios
 
-platform :ios do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-  end
-
-  desc "Runs all the tests"
-  lane :test do
-    scan(
-      project: "platforms/ios/AppShell.xcodeproj"
-    )
-    # slack(
-    #   message: "iOS test success."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
-end
-
 platform :android do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-  end
 
-  desc "Runs all the tests"
+  desc "Runs all the Android tests"
   lane :test do
     gradle(
       project_dir: "platforms/android",
       task: "test"
     )
-    # slack(
-    #   message: "Android test success."
-    # )
   end
 
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+end
+
+platform :ios do
+
+  desc "Runs all the iOS tests"
+  lane :test do
+    scan(
+      project: "platforms/ios/AppShell.xcodeproj"
+    )
   end
+
 end

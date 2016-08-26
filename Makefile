@@ -1,19 +1,17 @@
 # Copy HTML5 application to platforms directories.
-all: platforms/android/app/src/main/assets/www/index.html \
-	platforms/ios/www/index.html
 
-platforms/android/app/src/main/assets/www/index.html: www/index.html
-	sed -e 's/www-/android-/g' $^ >$@
+SOURCES := www/index.html
 
-platforms/ios/www/index.html: www/index.html
-	sed -e 's/www-/ios-/g' $^ >$@
+PLATFORMS := platforms/android/app/src/main/assets platforms/ios
 
-clean: clean-android clean-ios
+TARGETS := $(foreach platform,$(PLATFORMS),$(addprefix $(platform)/, $(SOURCES)))
 
-clean-android:
-	rm -f platforms/android/app/src/main/assets/www/index.html
+all: $(TARGETS)
 
-clean-ios:
-	rm -f platforms/ios/www/index.html
+$(TARGETS): $(SOURCES)
+	cp $^ $@
+
+clean:
+	$(RM) $(TARGETS)
 
 .PHONY: all clean
