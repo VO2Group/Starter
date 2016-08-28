@@ -1,17 +1,15 @@
 # Copy HTML5 application to platforms directories.
 
-SOURCES := www/index.html
+all: platforms/android/app/src/main/assets/www/index.html platforms/ios/www/index.html
 
-PLATFORMS := platforms/android/app/src/main/assets platforms/ios
+platforms/android/app/src/main/assets/www/index.html: src/index.html
+	cp $^ $@
 
-TARGETS := $(foreach platform, $(PLATFORMS), $(addprefix $(platform)/, $(SOURCES)))
-
-all: $(TARGETS)
-
-$(TARGETS): $(SOURCES)
+platforms/ios/www/index.html: src/index.html
 	cp $^ $@
 
 clean:
-	$(RM) $(TARGETS)
+	$(RM) platforms/android/app/src/main/assets/www/index.html
+	$(RM) platforms/ios/www/index.html
 
 .PHONY: all clean
