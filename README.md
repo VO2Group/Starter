@@ -38,7 +38,7 @@ Following tools are mandatory for a full use of Starter:
 
 If you use Starter you have to modify manually the platform projects, they are located in `platforms` directory and they are both named `AppShell`.
 
-### Platform projects use [WebKit][WebKit]!
+### Platform projects use [WebKit][WebKit]
 
 Both projects are *Single View Applications* with a *Fullscreen WebView*:
 * Starter uses [android.webkit.WebView][android.webkit.WebView] class on Android.
@@ -50,7 +50,7 @@ Both projects are *Single View Applications* with a *Fullscreen WebView*:
 
 Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features Starter send some events from native code to Javascript. The events are named `pause` and `resume`.
 
-On Android events are dispatched like this:
+On Android events are dispatched by the [MainActivity][MainActivity] like this:
 
 ```java
 this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", null);
@@ -60,7 +60,7 @@ this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", 
 this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('resume'));", null);
 ```
 
-And on iOS like this:
+And on iOS by the [ViewController][ViewController] like this:
 
 ```swift
 self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('pause'));", completionHandler: nil)
@@ -95,3 +95,5 @@ document.addEventListener('resume', function (e) {...});
 [android.webkit.WebView]: https://developer.android.com/reference/android/webkit/WebView.html "android.webkit.WebView"
 [WKWebView]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/ "WKWebView"
 [loadFileURL]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/#//apple_ref/occ/instm/WKWebView/loadFileURL:allowingReadAccessToURL: "loadFileURL"
+[MainActivity][MainActivity]: platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "MainActivity"
+[ViewController][ViewController]: platforms/ios/AppShell/ViewController.swift "ViewController"
