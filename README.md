@@ -82,8 +82,25 @@ document.addEventListener('resume', function (e) {...});
 
 ### Platform projects expose native to Javascript bridge
 
+FIXME
 
+### Platform projects supports In-App updates
 
+FIXME
+
+## Goals
+
+### [GNU make]
+
+FIXME
+
+### [fastlane]
+
+FIXME
+
+### [Jenkins]
+
+FIXME
 
 [WebKit]: https://webkit.org/ "WebKit"
 [Tim Peters's ode to programming]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
