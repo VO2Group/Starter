@@ -48,7 +48,7 @@ Both projects are *Single View Applications* with a *Fullscreen WebView*:
 
 ### Platform projects dispatch events to DOM Document Object
 
-Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features "Starter" send some events from native code to Javascript. The events are named `pause` and `resume`.
+Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features Starter send some events from native code to Javascript. The events are named `pause` and `resume`.
 
 On Android events are dispatched like this:
 
