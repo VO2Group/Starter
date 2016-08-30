@@ -26,26 +26,26 @@ window.platform = window.platform || {
 };
 
 function init() {
-  document.addEventListener('pause', onPause);
-  document.addEventListener('resume', onResume);
+  document.addEventListener('pause', pause);
+  document.addEventListener('resume', resume);
   document.getElementById('title').textContent = 'Starter(' + platform.name() + ')';
-  document.getElementById('foo').addEventListener('click', onFoo);
-  document.getElementById('bar').addEventListener('click', onBar);
+  document.getElementById('foo').addEventListener('click', foo);
+  document.getElementById('bar').addEventListener('click', bar);
 }
 
-function onPause() {
+function pause() {
   console.log('pausing...');
 }
 
-function onResume() {
+function resume() {
   console.log('resuming...');
 }
 
-function onFoo() {
+function foo() {
   platform.foo('Hello!');
 }
 
-function onBar() {
+function bar() {
   platform.bar('Do you love Javascript?', function (err, data) {
     console.log(data ? 'Yes' : 'No');
   });

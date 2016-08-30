@@ -40,11 +40,50 @@ If you use Starter you have to modify manually the platform projects, they are l
 
 ### Platform projects use [WebKit][WebKit]!
 
-Both projects are a *Single View Application* with a *Fullscreen WebView*:
+Both projects are *Single View Applications* with a *Fullscreen WebView*:
 * Starter uses [android.webkit.WebView][android.webkit.WebView] class on Android.
 * Starter uses the new [WKWebView][WKWebView] class on iOS (introduced in iOS 8).
 
 > More precisely Starter uses the method [loadFileURL][loadFileURL] of [WKWebView][WKWebView] class introduced in iOS 9!
+
+### Platform projects dispatch events to DOM Document Object
+
+Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features "Starter" send some events from native code to Javascript. The events are named `pause` and `resume`.
+
+On Android events are dispatched like this:
+
+```java
+this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", null);
+```
+
+```java
+this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('resume'));", null);
+```
+
+And on iOS like this:
+
+```swift
+self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('pause'));", completionHandler: nil)
+```
+
+```swift
+self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('resume'));", completionHandler: nil)
+```
+
+Finally events are handled in Javascript like this:
+
+```javascript
+document.addEventListener('pause', function (e) {...});
+```
+
+```javascript
+document.addEventListener('resume', function (e) {...});
+```
+
+### Platform projects expose native to Javascript bridge
+
+
+
 
 [WebKit]: https://webkit.org/ "WebKit"
 [Tim Peters's ode to programming]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
