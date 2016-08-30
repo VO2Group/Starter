@@ -95,5 +95,5 @@ document.addEventListener('resume', function (e) {...});
 [android.webkit.WebView]: https://developer.android.com/reference/android/webkit/WebView.html "android.webkit.WebView"
 [WKWebView]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/ "WKWebView"
 [loadFileURL]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/#//apple_ref/occ/instm/WKWebView/loadFileURL:allowingReadAccessToURL: "loadFileURL"
-[MainActivity][MainActivity]: ./platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "MainActivity"
-[ViewController][ViewController]: ./platforms/ios/AppShell/ViewController.swift "ViewController"
+[MainActivity]: platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "MainActivity"
+[ViewController]: platforms/ios/AppShell/ViewController.swift "ViewController"
