@@ -17,6 +17,16 @@ platform :android do
     )
   end
 
+  desc "Compile the Android application"
+  lane :compile do
+
+  end
+
+  desc "Submit the Android application"
+  lane :store do
+
+  end
+
 end
 
 platform :ios do
@@ -26,6 +36,16 @@ platform :ios do
     scan(
       project: "platforms/ios/AppShell.xcodeproj"
     )
+  end
+
+  desc "Compile the iOS application"
+  lane :compile do
+
+  end
+
+  desc "Submit the iOS application"
+  lane :store do
+
   end
 
 end

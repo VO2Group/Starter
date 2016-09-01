@@ -82,7 +82,9 @@ document.addEventListener('resume', function (e) {...});
 
 ### Platform projects expose native to Javascript bridge
 
-FIXME
+In hybrid applications Javascript need to call some native code, to do this, the platform projects inject an object called `platform` in Window object.
+
+
 
 ### Platform projects supports In-App updates
 
