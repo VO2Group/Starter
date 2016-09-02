@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        this.mWebView.setWebViewClient(new AppShellWebViewClient());
-        this.mWebView.addJavascriptInterface(new AppShellJavascriptInterface(this, this.mWebView), "android");
+        this.mWebView.setWebViewClient(new WebViewClient());
+        this.mWebView.addJavascriptInterface(new JavascriptInterface(this, this.mWebView), "android");
 
         try (InputStream stream = this.getAssets().open("platform.js")) {
             byte[] buffer = new byte[stream.available()];

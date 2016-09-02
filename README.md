@@ -50,7 +50,7 @@ Both projects are *Single View Applications* with a *Fullscreen WebView*:
 
 Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features Starter send some events from native code to Javascript. The events are named `pause` and `resume`.
 
-On Android events are dispatched by the [MainActivity][MainActivity] like this:
+On Android events are dispatched by the [com.starter.appshell.MainActivity][com.starter.appshell.MainActivity] like this:
 
 ```java
 this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", null);
@@ -82,9 +82,56 @@ document.addEventListener('resume', function (e) {...});
 
 ### Platform projects expose native to Javascript bridge
 
-In hybrid applications Javascript need to call some native code, to do this, the platform projects inject an object called `platform` in Window object.
+In hybrid applications Javascript need to call some native code, to do this, the platform projects inject an object called `platform` in Window object before loading HTML.
 
+On Android `platform` object look like this:
 
+```javascript
+window.platform = {
+  name: function () {
+    return 'andoid';
+  },
+
+  foo: function (message) {
+    android.foo(message);
+  },
+
+  bar: function (message, callback) {
+    var uuid = this._uuid();
+    this._callbacks[uuid] = callback;
+    android.bar(message, uuid);
+  },
+
+  _callbacks: {},
+
+  _uuid: function () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0;
+      var v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  },
+
+  _invoke: function (uuid, err, data) {
+    this._callbacks[uuid](err, data);
+    delete this._callbacks[uuid];
+  },
+};
+```
+
+> You may notice the `android` object, it is introduced by the [addJavascriptInterface][addJavascriptInterface] method of [android.webkit.WebView][android.webkit.WebView] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][com.starter.appshell.JavascriptInterface] class (see [android.webkit.JavascriptInterface][android.webkit.JavascriptInterface] annotation). Last but not least `_callbacks`, `_uuid` and `_invoke` are private functions, they are used to support async function callback.
+
+And [com.starter.appshell.MainActivity][com.starter.appshell.MainActivity] inject it like this:
+
+```java
+try (InputStream stream = this.getAssets().open("platform.js")) {
+    byte[] buffer = new byte[stream.available()];
+    stream.read(buffer);
+    this.mWebView.evaluateJavascript(new String(buffer), null);
+}
+catch (IOException ex) {
+}
+```
 
 ### Platform projects supports In-App updates
 
@@ -114,5 +161,8 @@ FIXME
 [android.webkit.WebView]: https://developer.android.com/reference/android/webkit/WebView.html "android.webkit.WebView"
 [WKWebView]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/ "WKWebView"
 [loadFileURL]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/#//apple_ref/occ/instm/WKWebView/loadFileURL:allowingReadAccessToURL: "loadFileURL"
-[MainActivity]: platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "MainActivity"
+[com.starter.appshell.MainActivity]: platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "com.starter.appshell.MainActivity"
 [ViewController]: platforms/ios/AppShell/ViewController.swift "ViewController"
+[addJavascriptInterface]: https://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object,%20java.lang.String) "addJavascriptInterface"
+[com.starter.appshell.JavascriptInterface]: platforms/android/app/src/main/java/com/starter/appshell/JavascriptInterface.java "com.starter.appshell.JavascriptInterface"
+[android.webkit.JavascriptInterface]: https://developer.android.com/reference/android/webkit/JavascriptInterface.html "android.webkit.JavascriptInterface"
