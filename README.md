@@ -119,7 +119,7 @@ window.platform = {
 };
 ```
 
-> You may notice the `android` object, it is introduced by the [addJavascriptInterface][addJavascriptInterface] method of [android.webkit.WebView][android.webkit.WebView] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][com.starter.appshell.JavascriptInterface] class (see [android.webkit.JavascriptInterface][android.webkit.JavascriptInterface] annotation). Last but not least `_callbacks`, `_uuid` and `_invoke` are private functions, they are used to support async function callback.
+> You may notice the `android` object, it is introduced by the [addJavascriptInterface][addJavascriptInterface] method of [android.webkit.WebView][android.webkit.WebView] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][com.starter.appshell.JavascriptInterface] class (see [android.webkit.JavascriptInterface][android.webkit.JavascriptInterface] annotation). Last but not least `_callbacks`, `_uuid` and `_invoke` functions are private, they are used to support async function callback.
 
 And [com.starter.appshell.MainActivity][com.starter.appshell.MainActivity] inject it like this:
 
@@ -131,6 +131,57 @@ try (InputStream stream = this.getAssets().open("platform.js")) {
 }
 catch (IOException ex) {
 }
+```
+
+On iOS, things are quite the same, `platform` object look like this:
+
+```javascript
+window.platform = {
+  name: function () {
+    return 'ios';
+  },
+
+  foo: function (message) {
+    webkit.messageHandlers.handler.postMessage({
+      method: 'foo',
+      message: message,
+    });
+  },
+
+  bar: function (message, callback) {
+    var uuid = this._uuid();
+    this._callbacks[uuid] = callback;
+    webkit.messageHandlers.handler.postMessage({
+      method: 'bar',
+      message: message,
+      callback: uuid,
+    });
+  },
+
+  _callbacks: {},
+
+  _uuid: function () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0;
+      var v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  },
+
+  _invoke: function (uuid, err, data) {
+    this._callbacks[uuid](err, data);
+    delete this._callbacks[uuid];
+  },
+};
+```
+
+> Here `webkit.messageHandlers.handler` object, it is introduced by the [addScriptMessageHandler][addScriptMessageHandler] method of [WKUserContentController][WKUserContentController] class.
+
+And it is injected by [ViewController][ViewController] like this:
+
+```swift
+let platform = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("platform", ofType: "js")!)
+self.webView!.evaluateJavaScript(try! String(contentsOfURL: platform), completionHandler: nil)
 ```
 
 ### Platform projects supports In-App updates
@@ -166,3 +217,5 @@ FIXME
 [addJavascriptInterface]: https://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object,%20java.lang.String) "addJavascriptInterface"
 [com.starter.appshell.JavascriptInterface]: platforms/android/app/src/main/java/com/starter/appshell/JavascriptInterface.java "com.starter.appshell.JavascriptInterface"
 [android.webkit.JavascriptInterface]: https://developer.android.com/reference/android/webkit/JavascriptInterface.html "android.webkit.JavascriptInterface"
+[addScriptMessageHandler]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/#//apple_ref/occ/instm/WKUserContentController/addScriptMessageHandler:name: "addScriptMessageHandler"
+[WKUserContentController]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/ "WKUserContentController"
