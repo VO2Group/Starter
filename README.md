@@ -175,7 +175,7 @@ window.platform = {
 };
 ```
 
-> Here `webkit.messageHandlers.handler` object, it is introduced by the [addScriptMessageHandler][addScriptMessageHandler] method of [WKUserContentController][WKUserContentController] class.
+> Here `webkit.messageHandlers.handler` object, it is introduced by the [addScriptMessageHandler][addScriptMessageHandler] method of [WKUserContentController][WKUserContentController] class and posted messages are received by [ScriptMessageHandler][ScriptMessageHandler] class.
 
 And it is injected by [ViewController][ViewController] like this:
 
@@ -219,3 +219,4 @@ FIXME
 [android.webkit.JavascriptInterface]: https://developer.android.com/reference/android/webkit/JavascriptInterface.html "android.webkit.JavascriptInterface"
 [addScriptMessageHandler]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/#//apple_ref/occ/instm/WKUserContentController/addScriptMessageHandler:name: "addScriptMessageHandler"
 [WKUserContentController]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/ "WKUserContentController"
+[ScriptMessageHandler]: platforms/ios/AppShell/ScriptMessageHandler.swift "ScriptMessageHandler"
