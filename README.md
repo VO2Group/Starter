@@ -217,6 +217,28 @@ And on iOS:
 self.viewController.webView!.evaluateJavaScript("platform._invoke('" + callback + "', null, true);", completionHandler: nil)
 ```
 
+#### Mock `platform` object for development
+
+You have to mock the `platform` object during development phase in the browser, you can do somthing like this:
+
+```javascript
+window.platform = window.platform || {
+  name: function () {
+    return 'www';
+  },
+
+  foo: function (message) {
+    alert(message);
+  },
+
+  bar: function (message, callback) {
+    callback(null, confirm(message));
+  },
+};
+```
+
+> As you can see the object is defined only if it not exist (see [index.html][index.html]).
+
 ### Platform projects supports In-App updates
 
 FIXME
@@ -254,3 +276,4 @@ FIXME
 [WKUserContentController]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/ "WKUserContentController"
 [ScriptMessageHandler]: platforms/ios/AppShell/ScriptMessageHandler.swift "ScriptMessageHandler"
 [post]: https://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable) "post"
+[index.html]: src/index.html "index.html"
