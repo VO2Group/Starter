@@ -239,9 +239,11 @@ window.platform = window.platform || {
 
 > As you can see the object is defined only if it not exist (see [index.html][index.html]).
 
-### Platform projects supports In-App updates
+### Platform projects supports In-App update
 
-FIXME
+Each project declare in his own application manifest a property named `StartURL`, if this property is non empty the application start in In-App update mode. That's means the application will download the content before loading it in the WebView.
+
+> See [AndroidManifest.xml][AndroidManifest.xml] and [Info.plist][Info.plist]
 
 ## Goals
 
@@ -277,3 +279,5 @@ FIXME
 [ScriptMessageHandler]: platforms/ios/AppShell/ScriptMessageHandler.swift "ScriptMessageHandler"
 [post]: https://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable) "post"
 [index.html]: src/index.html "index.html"
+[AndroidManifest.xml]: platforms/android/app/src/main/AndroidManifest.xml "AndroidManifest.xml"
+[Info.plist]: platforms/ios/AppShell/Info.plist "Info.plist"
