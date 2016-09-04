@@ -119,7 +119,7 @@ window.platform = {
 };
 ```
 
-> You may notice the `android` object, it is introduced by the [addJavascriptInterface][addJavascriptInterface] method of [android.webkit.WebView][android.webkit.WebView] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][com.starter.appshell.JavascriptInterface] class (see [android.webkit.JavascriptInterface][android.webkit.JavascriptInterface] annotation). Last but not the least, `_callbacks`, `_uuid` and `_invoke` are private properties, they are used to support async function callback.
+> The `android` object is introduced by the [addJavascriptInterface][addJavascriptInterface] method of [android.webkit.WebView][android.webkit.WebView] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][com.starter.appshell.JavascriptInterface] class (see [android.webkit.JavascriptInterface][android.webkit.JavascriptInterface] annotation). Last but not the least, `_callbacks`, `_uuid` and `_invoke` are private properties, they are used to support async function callback.
 
 And [com.starter.appshell.MainActivity][com.starter.appshell.MainActivity] inject it like this:
 
