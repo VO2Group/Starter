@@ -186,7 +186,7 @@ self.webView!.evaluateJavaScript(try! String(contentsOfURL: platform), completio
 
 #### How callbacks works?
 
-Starter use the same callback model as node.js use, a function with two arguments: `err` and `data`. They are typically used like this:
+Starter use the same callback model as node.js, a function with two arguments: `err` and `data`. They are typically used like this:
 
 ```javascript
 function (err, data) {
