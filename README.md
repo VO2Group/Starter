@@ -4,7 +4,7 @@ Write smart hybrid apps!
 
 ## Motivation
 
-1. Webkit  
+1. [WebKit][WebKit]  
    The goal of Starter project is to use [WebKit][WebKit] on every platforms to ensure behaviors and performances.
 
 2. Simple  
@@ -219,7 +219,7 @@ self.viewController.webView!.evaluateJavaScript("platform._invoke('" + callback 
 
 #### Mock `platform` object for development
 
-You have to mock the `platform` object during development phase in the browser, you can do somthing like this:
+You have to mock the `platform` object during development phase in the browser, you can do something like this:
 
 ```javascript
 window.platform = window.platform || {
@@ -249,9 +249,9 @@ Each project can define in his own application manifest a property named `StartU
 
 ### [GNU make][GNU make]
 
-[GNU make][GNU make] goals are defined in [Makefile][Makefile] file, his main purpose is to copy the HTML5 application located in `src` directory in platform projects:
+[GNU make][GNU make] goals are defined in [Makefile][Makefile] file, his main purpose is to copy the HTML5 application located in `src` directory to platform projects:
 
-* On Android the application is copied to `/Users/julienrouzieres/Projects/Starter/platforms/android/app/src/main/assets/www`
+* On Android the application is copied to `platforms/android/app/src/main/assets/www`
 * And on iOS to `platforms/ios/www`
 
 > If the HTML5 application need to be bundled with tools like [browserify][browserify] or [webpack][webpack] it must be done here! Let's say that the [Makefile][Makefile] know both worlds (native and HTML).
