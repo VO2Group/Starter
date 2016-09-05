@@ -30,8 +30,13 @@ class ViewController: UIViewController {
         let platform = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("platform", ofType: "js")!)
         self.webView!.evaluateJavaScript(try! String(contentsOfURL: platform), completionHandler: nil)
 
-        let index = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
-        self.webView!.loadFileURL(index, allowingReadAccessToURL: index.URLByDeletingLastPathComponent!)
+        if let url = NSBundle.mainBundle().objectForInfoDictionaryKey("StartURL") as? String {
+            self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        }
+        else {
+            let index = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
+            self.webView!.loadFileURL(index, allowingReadAccessToURL: index.URLByDeletingLastPathComponent!)
+        }
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.onPause), name: UIApplicationDidEnterBackgroundNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.onResume), name: UIApplicationWillEnterForegroundNotification, object: nil)

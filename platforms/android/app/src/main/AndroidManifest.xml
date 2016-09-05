@@ -9,7 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="StartURL" android:value="" />
+        <!--
+        <meta-data android:name="StartURL" android:value="https://cdn.rawgit.com/Lajule/Starter/master/src/index.html" />
+        -->
 
         <activity android:name=".MainActivity">
             <intent-filter>

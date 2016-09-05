@@ -1,5 +1,7 @@
 package com.starter.appshell;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -33,7 +35,15 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException ex) {
         }
 
-        this.mWebView.loadUrl("file:///android_asset/www/index.html");
+        String url = "file:///android_asset/www/index.html";
+        try {
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            url = (String) ai.metaData.get("StartURL");
+        }
+        catch (Exception ex) {
+        }
+
+        this.mWebView.loadUrl(url);
     }
 
     @Override

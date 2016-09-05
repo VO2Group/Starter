@@ -18,7 +18,7 @@ Write smart hybrid apps!
 Starter focus two platforms:
 
 * iOS 9+
-* Android 6.0 (API level 23)
+* Android 6.0+ (API level 23)
 
 > If you need more backward compatibility or more exotic platforms like Windows Phone or BlackBerry, use something else!
 
@@ -239,23 +239,28 @@ window.platform = window.platform || {
 
 > As you can see the object is defined only if it not exist (see [index.html][index.html]).
 
-### Platform projects supports In-App update
+### Platform projects supports *viewer* mode
 
-Each project declare in his own application manifest a property named `StartURL`, if this property is non empty the application start in In-App update mode. That's means the application will download the content before loading it in the WebView.
+Each project can define in his own application manifest a property named `StartURL`, if this property is defined, the application start in *viewer* update mode. That's means the application will load this url in the WebView.
 
 > See [AndroidManifest.xml][AndroidManifest.xml] and [Info.plist][Info.plist]
 
 ## Goals
 
-### [GNU make]
+### [GNU make][GNU make]
+
+[GNU make][GNU make] goals are defined in [Makefile][Makefile] file, his main purpose is to copy the HTML5 application located in `src` directory in platform projects:
+
+* On Android the application is copied to `/Users/julienrouzieres/Projects/Starter/platforms/android/app/src/main/assets/www`
+* And on iOS to `platforms/ios/www`
+
+> If the HTML5 application need to be bundled with tools like [browserify][browserify] or [webpack][webpack] it must be done here! Let's say that the [Makefile][Makefile] know both worlds (native and HTML).
+
+### [fastlane][fastlane]
 
 FIXME
 
-### [fastlane]
-
-FIXME
-
-### [Jenkins]
+### [Jenkins][Jenkins]
 
 FIXME
 
@@ -281,3 +286,6 @@ FIXME
 [index.html]: src/index.html "index.html"
 [AndroidManifest.xml]: platforms/android/app/src/main/AndroidManifest.xml "AndroidManifest.xml"
 [Info.plist]: platforms/ios/AppShell/Info.plist "Info.plist"
+[Makefile]: Makefile "Makefile"
+[browserify]: http://browserify.org/ "browserify"
+[webpack]: https://webpack.github.io/ "webpack"
