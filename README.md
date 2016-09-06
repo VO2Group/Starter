@@ -4,11 +4,11 @@ Write smart hybrid apps!
 
 ## Motivation
 
-1. [WebKit][WebKit]  
-   The goal of Starter project is to use [WebKit][WebKit] on every platforms to ensure behaviors and performances.
+1. [WebKit][1]  
+   The goal of Starter project is to use [WebKit][1] on every platforms to ensure behaviors and performances.
 
 2. Simple  
-   Starter is simple! Take a look at [Tim Peters's ode to programming][Tim Peters's ode to programming].
+   Starter is simple! Take a look at [Tim Peters's ode to programming][2].
 
 3. Unbreakable  
    None of tim's rules can be broken (see 8th rule).
@@ -38,7 +38,7 @@ Following tools are mandatory for a full use of Starter:
 
 If you use Starter you have to modify manually the platform projects, they are located in `platforms` directory and they are both named `AppShell`.
 
-### Platform projects use [WebKit][WebKit]
+### Platform projects use [WebKit][1]
 
 Both projects are *Single View Applications* with a *Fullscreen WebView*:
 * Starter uses [android.webkit.WebView][android.webkit.WebView] class on Android.
@@ -245,6 +245,34 @@ Each project can define in his own application manifest a property named `StartU
 
 > See [AndroidManifest.xml][AndroidManifest.xml] and [Info.plist][Info.plist]
 
+The WebView is initialized like this on Android:
+
+```java
+String url = "file:///android_asset/www/index.html";
+try {
+    ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+    url = (String) ai.metaData.get("StartURL");
+}
+catch (Exception ex) {
+}
+
+this.mWebView.loadUrl(url);
+```
+
+> More information on `assets` directory can be found here [Project Structure][Project Structure].
+
+Once again, things are equivalent on iOS:
+
+```swift
+if let url = NSBundle.mainBundle().objectForInfoDictionaryKey("StartURL") as? String {
+    self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+}
+else {
+    let index = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
+    self.webView!.loadFileURL(index, allowingReadAccessToURL: index.URLByDeletingLastPathComponent!)
+}
+```
+
 ## Goals
 
 ### [GNU make][GNU make]
@@ -254,7 +282,7 @@ Each project can define in his own application manifest a property named `StartU
 * On Android the application is copied to `platforms/android/app/src/main/assets/www`
 * And on iOS to `platforms/ios/www`
 
-> If the HTML5 application need to be bundled with tools like [browserify][browserify] or [webpack][webpack] it must be done here! Let's say that the [Makefile][Makefile] know both worlds (native and HTML).
+> If the HTML5 application need to be bundled with tools like [browserify][browserify] or [webpack][webpack], it must be done here! Let's say that the [Makefile][Makefile] know both worlds (native and Javascript).
 
 ### [fastlane][fastlane]
 
@@ -264,8 +292,8 @@ FIXME
 
 FIXME
 
-[WebKit]: https://webkit.org/ "WebKit"
-[Tim Peters's ode to programming]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
+[1]: https://webkit.org/ "WebKit"
+[2]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
 [XCode]: https://itunes.apple.com/en/app/xcode/id497799835?mt=12 "XCode"
 [Android Studio]: https://developer.android.com/studio/index.html "Android Studio"
 [GNU make]: https://www.gnu.org/software/make/manual/make.html "GNU make"
@@ -286,6 +314,7 @@ FIXME
 [index.html]: src/index.html "index.html"
 [AndroidManifest.xml]: platforms/android/app/src/main/AndroidManifest.xml "AndroidManifest.xml"
 [Info.plist]: platforms/ios/AppShell/Info.plist "Info.plist"
+[Project Structure]: http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Project-Structure "Project Structure"
 [Makefile]: Makefile "Makefile"
 [browserify]: http://browserify.org/ "browserify"
 [webpack]: https://webpack.github.io/ "webpack"
