@@ -41,10 +41,10 @@ If you use Starter you have to modify manually the platform projects, they are l
 ### Platform projects use [WebKit][1]
 
 Both projects are *Single View Applications* with a *Fullscreen WebView*:
-* Starter uses [android.webkit.WebView][8] class on Android.
-* Starter uses the new [WKWebView][9] class on iOS (introduced in iOS 8).
+* Starter use [android.webkit.WebView][8] class on Android.
+* Starter use the new [WKWebView][9] class on iOS (introduced in iOS 8).
 
-> More precisely Starter uses the method [loadFileURL][10] of [WKWebView][9] class introduced in iOS 9!
+> More precisely Starter use the method [loadFileURL][10] of [WKWebView][9] class introduced in iOS 9!
 
 ### Platform projects dispatch events to DOM Document Object
 
