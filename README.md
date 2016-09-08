@@ -286,7 +286,23 @@ else {
 
 ### [fastlane][7]
 
-FIXME
+[fastlane][7] handles following lifecycle tasks of platform projects:
+
+* Run units tests and UI tests
+* Build application
+* Submit application to store
+
+> Good tool or bad tool ? [fastlane][7] provide a certain uniform way to manipulate platform projects.
+
+Starter provides following lanes for both platforms:
+
+* `test`: Runs all the tests
+* `compile`: Compile the application
+* `store`: Submit the application
+
+> For example to build iOS platform project, use `fastlane ios compile`
+
+Check [fastlane][7] files for more information: [Appfile][27], [Fastfile][28].
 
 ### [Jenkins][6]
 
@@ -318,3 +334,5 @@ FIXME
 [24]: Makefile "Makefile"
 [25]: http://browserify.org/ "browserify"
 [26]: https://webpack.github.io/ "webpack"
+[27]: fastlane/Appfile "Appfile"
+[28]: fastlane/Fastfile "Fastfile"
