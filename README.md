@@ -292,7 +292,7 @@ else {
 * Build application
 * Submit application to store
 
-> Good tool or bad tool ? [fastlane][7] provide a certain uniform way to manipulate platform projects.
+> Good tool or bad tool ? [fastlane][7] allows you to manipulate platform projects in a uniform way!
 
 Starter provides following lanes for both platforms:
 
@@ -306,7 +306,7 @@ Check [fastlane][7] files for more information: [Appfile][27], [Fastfile][28].
 
 ### [Jenkins][6]
 
-FIXME
+[Jenkins][6] pipeline is defined in [Jenkinsfile][29] file
 
 [1]: https://webkit.org/ "WebKit"
 [2]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
@@ -336,3 +336,4 @@ FIXME
 [26]: https://webpack.github.io/ "webpack"
 [27]: fastlane/Appfile "Appfile"
 [28]: fastlane/Fastfile "Fastfile"
+[29]: Jenkinsfile "Jenkinsfile"
