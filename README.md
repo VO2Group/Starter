@@ -31,7 +31,7 @@ Following tools are mandatory for a full use of Starter:
 
 If you use Starter you have to modify manually the platform projects, they are located in `platforms` directory and they are both named `AppShell`.
 
-### Platform projects use [WebKit][1]
+### Platform projects use WebKit
 
 Both projects are *Single View Applications* with a *Fullscreen WebView*:
 * Starter uses [android.webkit.WebView][6] class on Android.
@@ -304,8 +304,6 @@ Check [fastlane][5] files for more information: [Appfile][25], [Fastfile][26].
 * [GUN make][22] rules
 * [fastlane][5] lanes
 
-[1]: https://webkit.org/ "WebKit"
-[2]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
 [1]: https://itunes.apple.com/en/app/xcode/id497799835?mt=12 "XCode"
 [2]: https://developer.android.com/studio/index.html "Android Studio"
 [3]: https://www.gnu.org/software/make/manual/make.html "GNU make"
