@@ -28,7 +28,7 @@ window.platform = window.platform || {
 function init() {
   document.addEventListener('pause', pause);
   document.addEventListener('resume', resume);
-  document.getElementById('title').textContent = 'Starter(' + platform.name() + ')';
+  document.getElementById('title').textContent = platform.name();
   document.getElementById('foo').addEventListener('click', foo);
   document.getElementById('bar').addEventListener('click', bar);
 }

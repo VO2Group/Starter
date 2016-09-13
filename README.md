@@ -1,17 +1,10 @@
 # Starter
 
-Write smart hybrid apps!
+Starter is a starter kit for building hybrid app, actually it contains:
 
-## Motivation
-
-1. [WebKit][1]  
-   The goal of Starter project is to use [WebKit][1] on every platforms to ensure behaviors and performances.
-
-2. Simple  
-   Starter is simple! Take a look at [Tim Peters's ode to programming][2].
-
-3. Unbreakable  
-   None of tim's rules can be broken (see 8th rule).
+* An HTML5 application
+* Two native projects
+* And a set of tools files
 
 ## Platforms
 
@@ -26,11 +19,11 @@ Starter focuses to two platforms:
 
 Following tools are mandatory for a full use of Starter:
 
-* [XCode][3]: Even if you don't feel right with it, there is no other choice for iOS.
-* [Android Studio][4]: The best IDE for building Android apps.
-* [GNU make][5]: After more than 25 years, the old `make` build tool still rule them all!
-* [Jenkins][6]: The king of continuous integration.
-* [fastlane][7]: The game changer for stores submission.
+* [XCode][1]: Even if you don't feel right with it, there is no other choice for iOS.
+* [Android Studio][2]: The best IDE for building Android apps.
+* [GNU make][3]: After more than 25 years, the old `make` build tool still rule them all!
+* [Jenkins][4]: The king of continuous integration.
+* [fastlane][5]: The game changer for stores submission.
 
 ## Concepts
 
@@ -41,16 +34,16 @@ If you use Starter you have to modify manually the platform projects, they are l
 ### Platform projects use [WebKit][1]
 
 Both projects are *Single View Applications* with a *Fullscreen WebView*:
-* Starter uses [android.webkit.WebView][8] class on Android.
-* Starter uses the new [WKWebView][9] class on iOS (introduced in iOS 8).
+* Starter uses [android.webkit.WebView][6] class on Android.
+* Starter uses the new [WKWebView][7] class on iOS (introduced in iOS 8).
 
-> More precisely Starter uses the method [loadFileURL][10] of [WKWebView][9] class introduced in iOS 9!
+> More precisely Starter uses the method [loadFileURL][8] of [WKWebView][7] class introduced in iOS 9!
 
 ### Platform projects dispatch events to DOM Document Object
 
 Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features Starter sends some events from native code to Javascript. The events are named `pause` and `resume`.
 
-On Android events are dispatched by the [com.starter.appshell.MainActivity][11] like this:
+On Android events are dispatched by the [com.starter.appshell.MainActivity][9] like this:
 
 ```java
 this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", null);
@@ -60,7 +53,7 @@ this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('pause'));", 
 this.mWebView.evaluateJavascript("document.dispatchEvent(new Event('resume'));", null);
 ```
 
-And on iOS by the [ViewController][12] like this:
+And on iOS by the [ViewController][10] like this:
 
 ```swift
 self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('pause'));", completionHandler: nil)
@@ -119,9 +112,9 @@ window.platform = {
 };
 ```
 
-> The `android` object is introduced by the [addJavascriptInterface][13] method of [android.webkit.WebView][8] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][14] class (see [android.webkit.JavascriptInterface][15] annotation). Last but not the least, `_callbacks`, `_uuid` and `_invoke` are private properties, they are used to support async function callback.
+> The `android` object is introduced by the [addJavascriptInterface][11] method of [android.webkit.WebView][6] class. Also `android.foo()` and `android.bar(...)` functions are defined by the methods of [com.starter.appshell.JavascriptInterface][12] class (see [android.webkit.JavascriptInterface][13] annotation). Last but not the least, `_callbacks`, `_uuid` and `_invoke` are private properties, they are used to support async function callback.
 
-And [com.starter.appshell.MainActivity][11] injects it like this:
+And [com.starter.appshell.MainActivity][9] injects it like this:
 
 ```java
 try (InputStream stream = this.getAssets().open("platform.js")) {
@@ -175,9 +168,9 @@ window.platform = {
 };
 ```
 
-> Here `webkit.messageHandlers.handler` object is introduced by [addScriptMessageHandler][16] method of [WKUserContentController][17] class and posted messages are received by [ScriptMessageHandler][18] class.
+> Here `webkit.messageHandlers.handler` object is introduced by [addScriptMessageHandler][14] method of [WKUserContentController][15] class and posted messages are received by [ScriptMessageHandler][16] class.
 
-And it is injected by [ViewController][12] like this:
+And it is injected by [ViewController][10] like this:
 
 ```swift
 let platform = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("platform", ofType: "js")!)
@@ -209,7 +202,7 @@ this.mWebView.post(new Runnable() {
 });
 ```
 
-> The callback is not invoked on the UI thread (see [post][19] method).
+> The callback is not invoked on the UI thread (see [post][17] method).
 
 And on iOS:
 
@@ -237,13 +230,13 @@ window.platform = window.platform || {
 };
 ```
 
-> As you can see the object is defined only if it doesn't exist (see [index.html][20]).
+> As you can see the object is defined only if it doesn't exist (see [index.html][18]).
 
 ### Platform projects supports *viewer* mode
 
 Each project can define in its own application manifest a property named `StartURL`. If this property is defined, the application starts in *viewer* mode. That allows the application to load this url in the WebView.
 
-> See [AndroidManifest.xml][21] and [Info.plist][22]
+> See [AndroidManifest.xml][19] and [Info.plist][20]
 
 The WebView is initialized like this on Android:
 
@@ -259,7 +252,7 @@ catch (Exception ex) {
 this.mWebView.loadUrl(url);
 ```
 
-> More information on `assets` directory can be found here [Project Structure][23].
+> More information on `assets` directory can be found here [Project Structure][21].
 
 Once again, things are equivalent on iOS:
 
@@ -275,24 +268,24 @@ else {
 
 ## Goals
 
-### [GNU make][5]
+### [GNU make][3]
 
-[GNU make][5] goals are defined in [Makefile][24] file. Its main purpose is to copy the HTML5 application located in `src` directory to platform projects:
+[GNU make][3] goals are defined in [Makefile][22] file. Its main purpose is to copy the HTML5 application located in `src` directory to platform projects:
 
 * On Android the application is copied to `platforms/android/app/src/main/assets/www`
 * And on iOS to `platforms/ios/www`
 
-> If the HTML5 application needs to be bundled with tools like [browserify][25] or [webpack][26], it must be done here! Let's say that the [Makefile][24] knows both worlds (native and Javascript).
+> If the HTML5 application needs to be bundled with tools like [browserify][23] or [webpack][24], it must be done here! Let's say that the [Makefile][22] knows both worlds (native and Javascript).
 
-### [fastlane][7]
+### [fastlane][5]
 
-[fastlane][7] handles following lifecycle tasks of platform projects:
+[fastlane][5] handles following lifecycle tasks of platform projects:
 
 * Run units tests and UI tests
 * Build application
 * Submit application to store
 
-> Good tool or bad tool ? [fastlane][7] allows you to manipulate platform projects in a uniform way!
+> Good tool or bad tool ? [fastlane][5] allows you to manipulate platform projects in a uniform way!
 
 Starter provides following lanes for both platforms:
 
@@ -302,38 +295,41 @@ Starter provides following lanes for both platforms:
 
 > For example to build iOS platform project, use `fastlane ios compile`
 
-Check [fastlane][7] files for more information: [Appfile][27], [Fastfile][28].
+Check [fastlane][5] files for more information: [Appfile][25], [Fastfile][26].
 
-### [Jenkins][6]
+### [Jenkins][4]
 
-[Jenkins][6] pipeline is defined in [Jenkinsfile][29] file
+[Jenkins][4] pipeline is defined in [Jenkinsfile][27] file. Normally Jenkins pipeline should execute:
+
+* [GUN make][22] rules
+* [fastlane][5] lanes
 
 [1]: https://webkit.org/ "WebKit"
 [2]: https://www.python.org/dev/peps/pep-0020/ "The zen of python"
-[3]: https://itunes.apple.com/en/app/xcode/id497799835?mt=12 "XCode"
-[4]: https://developer.android.com/studio/index.html "Android Studio"
-[5]: https://www.gnu.org/software/make/manual/make.html "GNU make"
-[6]: https://jenkins.io/ "Jenkins"
-[7]: https://fastlane.tools/ "fastlane"
-[8]: https://developer.android.com/reference/android/webkit/WebView.html "android.webkit.WebView"
-[9]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/ "WKWebView"
-[10]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/#//apple_ref/occ/instm/WKWebView/loadFileURL:allowingReadAccessToURL: "loadFileURL"
-[11]: platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "com.starter.appshell.MainActivity"
-[12]: platforms/ios/AppShell/ViewController.swift "ViewController"
-[13]: https://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object,%20java.lang.String) "addJavascriptInterface"
-[14]: platforms/android/app/src/main/java/com/starter/appshell/JavascriptInterface.java "com.starter.appshell.JavascriptInterface"
-[15]: https://developer.android.com/reference/android/webkit/JavascriptInterface.html "android.webkit.JavascriptInterface"
-[16]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/#//apple_ref/occ/instm/WKUserContentController/addScriptMessageHandler:name: "addScriptMessageHandler"
-[17]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/ "WKUserContentController"
-[18]: platforms/ios/AppShell/ScriptMessageHandler.swift "ScriptMessageHandler"
-[19]: https://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable) "post"
-[20]: src/index.html "index.html"
-[21]: platforms/android/app/src/main/AndroidManifest.xml "AndroidManifest.xml"
-[22]: platforms/ios/AppShell/Info.plist "Info.plist"
-[23]: http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Project-Structure "Project Structure"
-[24]: Makefile "Makefile"
-[25]: http://browserify.org/ "browserify"
-[26]: https://webpack.github.io/ "webpack"
-[27]: fastlane/Appfile "Appfile"
-[28]: fastlane/Fastfile "Fastfile"
-[29]: Jenkinsfile "Jenkinsfile"
+[1]: https://itunes.apple.com/en/app/xcode/id497799835?mt=12 "XCode"
+[2]: https://developer.android.com/studio/index.html "Android Studio"
+[3]: https://www.gnu.org/software/make/manual/make.html "GNU make"
+[4]: https://jenkins.io/ "Jenkins"
+[5]: https://fastlane.tools/ "fastlane"
+[6]: https://developer.android.com/reference/android/webkit/WebView.html "android.webkit.WebView"
+[7]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/ "WKWebView"
+[8]: https://developer.apple.com/library/mac/documentation/WebKit/Reference/WKWebView_Ref/#//apple_ref/occ/instm/WKWebView/loadFileURL:allowingReadAccessToURL: "loadFileURL"
+[9]: platforms/android/app/src/main/java/com/starter/appshell/MainActivity.java "com.starter.appshell.MainActivity"
+[10]: platforms/ios/AppShell/ViewController.swift "ViewController"
+[11]: https://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object,%20java.lang.String) "addJavascriptInterface"
+[12]: platforms/android/app/src/main/java/com/starter/appshell/JavascriptInterface.java "com.starter.appshell.JavascriptInterface"
+[13]: https://developer.android.com/reference/android/webkit/JavascriptInterface.html "android.webkit.JavascriptInterface"
+[14]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/#//apple_ref/occ/instm/WKUserContentController/addScriptMessageHandler:name: "addScriptMessageHandler"
+[15]: https://developer.apple.com/library/ios/documentation/WebKit/Reference/WKUserContentController_Ref/ "WKUserContentController"
+[16]: platforms/ios/AppShell/ScriptMessageHandler.swift "ScriptMessageHandler"
+[17]: https://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable) "post"
+[18]: src/index.html "index.html"
+[19]: platforms/android/app/src/main/AndroidManifest.xml "AndroidManifest.xml"
+[20]: platforms/ios/AppShell/Info.plist "Info.plist"
+[21]: http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Project-Structure "Project Structure"
+[22]: Makefile "Makefile"
+[23]: http://browserify.org/ "browserify"
+[24]: https://webpack.github.io/ "webpack"
+[25]: fastlane/Appfile "Appfile"
+[26]: fastlane/Fastfile "Fastfile"
+[27]: Jenkinsfile "Jenkinsfile"
