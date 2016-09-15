@@ -1,6 +1,6 @@
 # Starter
 
-Starter is a starter kit for building hybrid app, actually it contains:
+Starter is a starter kit for building hybrid apps, actually it contains:
 
 * An HTML5 application
 * Two native projects
