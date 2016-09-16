@@ -17,14 +17,15 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         self.viewController = viewController
     }
 
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "handler" {
-            switch message.body["method"] as! String {
+            let body = message.body as! NSDictionary
+            switch body["method"] as! String {
             case "foo":
-                self.foo(message.body["message"] as! String)
+                self.foo(body["message"] as! String)
                 break
             case "bar":
-                self.bar(message.body["message"] as! String, callback: message.body["callback"] as! String)
+                self.bar(body["message"] as! String, callback: body["callback"] as! String)
                 break
             default:
                 break
@@ -32,21 +33,21 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         }
     }
 
-    func foo(message: String) {
-        let alert = UIAlertController(title: "Foo", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-        self.viewController.presentViewController(alert, animated: true, completion: nil)
+    func foo(_ message: String) {
+        let alert = UIAlertController(title: "Foo", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+        self.viewController.present(alert, animated: true, completion: nil)
     }
 
-    func bar(message: String, callback: String) {
-        let alert = UIAlertController(title: "Bar", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+    func bar(_ message: String, callback: String) {
+        let alert = UIAlertController(title: "Bar", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
             self.viewController.webView!.evaluateJavaScript("platform._invoke('" + callback + "', null, true);", completionHandler: nil)
         }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Default, handler: { (action: UIAlertAction!) in
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
             self.viewController.webView!.evaluateJavaScript("platform._invoke('" + callback + "', null, false);", completionHandler: nil)
         }))
-        self.viewController.presentViewController(alert, animated: true, completion: nil)
+        self.viewController.present(alert, animated: true, completion: nil)
     }
 
 }

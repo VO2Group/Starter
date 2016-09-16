@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
         let config = WKWebViewConfiguration()
         let contentController = WKUserContentController()
-        contentController.addScriptMessageHandler(ScriptMessageHandler(viewController: self), name: "handler")
+        contentController.add(ScriptMessageHandler(viewController: self), name: "handler")
         config.userContentController = contentController
 
         self.webView = WKWebView(frame: self.view.frame, configuration: config)
@@ -27,30 +27,30 @@ class ViewController: UIViewController {
         self.webView!.allowsBackForwardNavigationGestures = true
         self.view.addSubview(self.webView!)
 
-        let platform = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("platform", ofType: "js")!)
-        self.webView!.evaluateJavaScript(try! String(contentsOfURL: platform), completionHandler: nil)
+        let platform = URL(fileURLWithPath: Bundle.main.path(forResource: "platform", ofType: "js")!)
+        self.webView!.evaluateJavaScript(try! String(contentsOf: platform), completionHandler: nil)
 
-        if let url = NSBundle.mainBundle().objectForInfoDictionaryKey("StartURL") as? String {
-            self.webView!.loadRequest(NSURLRequest(URL: NSURL(string: url)!))
+        if let url = Bundle.main.object(forInfoDictionaryKey: "StartURL") as? String {
+            self.webView!.load(URLRequest(url: URL(string: url)!))
         }
         else {
-            let index = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("index", ofType: "html", inDirectory: "www")!)
-            self.webView!.loadFileURL(index, allowingReadAccessToURL: index.URLByDeletingLastPathComponent!)
+            let index = URL(fileURLWithPath: Bundle.main.path(forResource: "index", ofType: "html", inDirectory: "www")!)
+            self.webView!.loadFileURL(index, allowingReadAccessTo: index.deletingLastPathComponent())
         }
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.onPause), name: UIApplicationDidEnterBackgroundNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.onResume), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.onPause), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.onResume), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 
-    func onPause(notification: NSNotification) {
+    func onPause(_ notification: Notification) {
         self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('pause'));", completionHandler: nil)
     }
 
-    func onResume(notification: NSNotification) {
+    func onResume(_ notification: Notification) {
         self.webView!.evaluateJavaScript("document.dispatchEvent(new Event('resume'));", completionHandler: nil)
     }
 
