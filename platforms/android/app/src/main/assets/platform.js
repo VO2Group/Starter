@@ -1,6 +1,6 @@
 window.platform = {
   name: function () {
-    return 'andoid';
+    return 'android';
   },
 
   foo: function (message) {
