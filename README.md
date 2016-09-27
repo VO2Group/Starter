@@ -252,7 +252,7 @@ catch (Exception ex) {
 this.mWebView.loadUrl(url);
 ```
 
-> More information on `assets` directory can be found here [Project Structure][21].
+> More information on `assets` directory can be found [here][21].
 
 Once again, things are equivalent on iOS:
 
