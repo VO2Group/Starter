@@ -27,11 +27,11 @@ Following tools are mandatory for a full use of Starter:
 
 ## Concepts
 
-### Platform projects are not generated!
+### Native projects are not generated!
 
-If you use Starter you have to modify manually the platform projects, they are located in `platforms` directory and they are both named `AppShell`.
+If you use Starter you have to modify manually the native projects, they are located in `platforms` directory and they are both named `AppShell`.
 
-### Platform projects use WebKit
+### Native projects use WebKit
 
 Both projects are *Single View Applications* with a *Fullscreen WebView*:
 * Starter uses [android.webkit.WebView][6] class on Android.
@@ -39,7 +39,7 @@ Both projects are *Single View Applications* with a *Fullscreen WebView*:
 
 > More precisely Starter uses the method [loadFileURL][8] of [WKWebView][7] class introduced in iOS 9!
 
-### Platform projects dispatch events to DOM Document Object
+### Native projects dispatch events to DOM Document Object
 
 Android and iOS are multitasking platforms, applications can be paused and can be resumed. To handle these features Starter sends some events from native code to Javascript. The events are named `pause` and `resume`.
 
@@ -73,9 +73,9 @@ document.addEventListener('pause', function (e) {...});
 document.addEventListener('resume', function (e) {...});
 ```
 
-### Platform projects expose native to Javascript bridge
+### Native projects expose native to Javascript bridge
 
-In hybrid applications, Javascript needs to call some native code. To do this, the platform projects inject an object called `platform` in Window object before loading HTML.
+In hybrid applications, Javascript needs to call some native code. To do this, the native projects inject an object called `platform` in Window object before loading HTML.
 
 On Android `platform` object look like this:
 
@@ -232,7 +232,7 @@ window.platform = window.platform || {
 
 > As you can see the object is defined only if it doesn't exist (see [index.html][18]).
 
-### Platform projects supports *viewer* mode
+### Native projects supports *viewer* mode
 
 Each project can define in its own application manifest a property named `StartURL`. If this property is defined, the application starts in *viewer* mode. That allows the application to load this url in the WebView.
 
@@ -270,7 +270,7 @@ else {
 
 ### [GNU make][3]
 
-[GNU make][3] goals are defined in [Makefile][22] file. Its main purpose is to copy the HTML5 application located in `src` directory to platform projects:
+[GNU make][3] goals are defined in [Makefile][22] file. Its main purpose is to copy the HTML5 application located in `src` directory to native projects:
 
 * On Android the application is copied to `platforms/android/app/src/main/assets/www`
 * And on iOS to `platforms/ios/www`
@@ -279,13 +279,13 @@ else {
 
 ### [fastlane][5]
 
-[fastlane][5] handles following lifecycle tasks of platform projects:
+[fastlane][5] handles following lifecycle tasks of native projects:
 
 * Run units tests and UI tests
 * Build application
 * Submit application to store
 
-> Good tool or bad tool ? [fastlane][5] allows you to manipulate platform projects in a uniform way!
+> Good tool or bad tool ? [fastlane][5] allows you to manipulate native projects in a uniform way!
 
 Starter provides following lanes for both platforms:
 
@@ -293,7 +293,7 @@ Starter provides following lanes for both platforms:
 * `compile`: Compile the application
 * `store`: Submit the application
 
-> For example to build iOS platform project, use `fastlane ios compile`
+> For example to build iOS native project, use `fastlane ios compile`
 
 Check [fastlane][5] files for more information: [Appfile][25], [Fastfile][26].
 
