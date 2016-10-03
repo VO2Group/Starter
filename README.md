@@ -232,7 +232,7 @@ window.platform = window.platform || {
 
 > As you can see the object is defined only if it doesn't exist (see [index.html][18]).
 
-### Native projects supports *viewer* mode
+### Native projects support *viewer* mode
 
 Each project can define in its own application manifest a property named `StartURL`. If this property is defined, the application starts in *viewer* mode. That allows the application to load this url in the WebView.
 
